@@ -9,8 +9,9 @@
 
 100 DEFINT a-z
 110 e=100:a=30:d=15:x=5
-120 ee=90:aen=20:den=10:ex=7
-
+120 ee=90:aen=20:den=10:ex=7:en=0:a$=""
+1 ' an array in basic 0,1,2,3
+130 DIM em(3): em(0)=-1:em(1)=1:em(2)=1:em(3)=-1
 1 ' presentation
 200 MODE 1:PRINT"RPG GAME"
 210 GOSUB 10000
@@ -32,9 +33,8 @@
 430 IF a$="d" THEN GOSUB 1400: GOTO 500
 440 GOTO 400
 
-1 'ENEMY ACTIONS'
-500 IF ex=x+1 THEN GOSUB 1200 :GOTO 900
-510 GOSUB 1300
+1 'ENEMY ACTIONS: enemy attacks or move
+500 IF ex=x+1 THEN GOSUB 1200 ELSE GOSUB 1300
 
 900 GOSUB 10000:WEND
 
@@ -50,8 +50,9 @@
 1210 IF ex=x+1 THEN e=e-aen: PRINT "the enemy attacks with force = "aen
 1220 RETURN
 
-1300 'enemy reloads
-1310 ee=ee + den: PRINT "the enemy reloads = "ee
+1300 'enemy moves
+1' ee=ee + den: PRINT "the enemy reloads = "ee
+1310 ex = ex +em(en): en=en+1: IF en=4 THEN en=0
 1320 RETURN
 
 1400 'player reloads
