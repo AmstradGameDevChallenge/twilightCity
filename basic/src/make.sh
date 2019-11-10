@@ -2,15 +2,19 @@
 
 IDSK=$CPCT_PATH/tools/iDSK-0.13/bin/iDSK
 SOURCE=miCodigo.bas
-TARGET=miCodigo.dsk
+TARGET=agc03rpg
+
 
 
 #CREATE DSK
-$IDSK $TARGET -n
+$IDSK ${TARGET}.dsk -n
+
+#remove Comments
+grep -v "^1 '" $SOURCE > ${TARGET}.bas
 
 #CONVERT TO MSDOS
 
 unix2dos $SOURCE
 
 #ADD TO DSK
-$IDSK $TARGET -i $SOURCE -t 0 
+$IDSK ${TARGET}.dsk -i ${TARGET}.bas -t 0 
